@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-
+// Start server only if DB connects
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
