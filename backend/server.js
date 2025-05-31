@@ -19,14 +19,15 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/recipes", recipesRoutes);
 
-// Static frontend
+// Static frontend (for Render/Vercel)
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
-  app.get("/*path", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-});
 
+  // Catch-all route for React Router
+  app.get("/*path", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
 }
 
 // Start server only if DB connects
